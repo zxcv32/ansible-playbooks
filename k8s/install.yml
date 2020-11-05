@@ -1,0 +1,38 @@
+---
+- name: Install Docker
+  hosts:
+    orchestrator
+    nodes
+  tasks:
+    - name: Install docker.io
+      apt:
+        name: docker.io
+        state: latest
+    - name: Install curl
+      apt:
+        name: curl
+        state: latest
+    - name: Install apt-transport-https
+      apt:
+        name: apt-transport-https
+        state: latest
+    - name: Adding k8s PPA
+      shell : |
+        curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+        apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+    - name: Install kubeadm
+      apt:
+        name: kubeadm
+        state: latest
+    - name: Install kubelet
+      apt:
+        name: kubelet
+        state: latest
+    - name: Install kubectl
+      apt:
+        name: kubectl
+        state: latest
+    - name: Install kubernetes-cni
+      apt:
+        name: kubernetes-cni
+        state: latest
