@@ -1,0 +1,11 @@
+---
+- name: Disabling Swap
+  hosts: all
+  tasks:
+  - name: Disabling Swap
+    shell: swapoff -a
+  - name: Commenting swap entries in /etc/fstab
+    replace:
+      path: /etc/fstab
+      regexp: '(^/.*swap*)'
+      replace: '# \1'
