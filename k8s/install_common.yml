@@ -16,7 +16,11 @@
       apt:
         name: apt-transport-https
         state: latest
+    - name: Adding k8s GPG key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
     - name: Adding k8s PPA
-      shell : |
-        curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
-        apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+      apt_repository:
+        repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
