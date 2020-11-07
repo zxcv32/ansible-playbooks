@@ -24,6 +24,14 @@
       apt:
         name: apt-transport-https
         state: latest
+    - name: Adding k8s GPG key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+    - name: Adding k8s PPA
+      apt_repository:
+        repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
     - name: Install kubeadm
       apt:
         name: kubeadm
@@ -40,11 +48,3 @@
       apt:
         name: kubernetes-cni
         state: latest
-    - name: Adding k8s GPG key
-      apt_key:
-        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-        state: present
-    - name: Adding k8s PPA
-      apt_repository:
-        repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
-        state: present
