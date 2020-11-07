@@ -8,13 +8,37 @@
       apt:
         name: docker.io
         state: latest
+    - name: Enable docker
+      systemd:
+        name: docker
+        state: enable
+    - name: Start docker
+      systemd:
+        name: docker
+        stat: start
     - name: Install curl
       apt:
         name: curl
         state: latest
     - name: Install apt-transport-https
       apt:
-        name: apt-transport-https
+        name: Install apt-transport-https
+        state: latest
+    - name: Install kubeadm
+      apt:
+        name: Install kubeadm
+        state: latest
+    - name: Install kubelet
+      apt:
+        name: Install kubelet
+        state: latest
+    - name: Install kubectl
+      apt:
+        name: Install kubectl
+        state: latest
+    - name: Install kubernetes-cni
+      apt:
+        name: Install kubernetes-cni
         state: latest
     - name: Adding k8s GPG key
       apt_key:
