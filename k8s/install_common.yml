@@ -22,23 +22,23 @@
         state: latest
     - name: Install apt-transport-https
       apt:
-        name: Install apt-transport-https
+        name: apt-transport-https
         state: latest
     - name: Install kubeadm
       apt:
-        name: Install kubeadm
+        name: kubeadm
         state: latest
     - name: Install kubelet
       apt:
-        name: Install kubelet
+        name: kubelet
         state: latest
     - name: Install kubectl
       apt:
-        name: Install kubectl
+        name: kubectl
         state: latest
     - name: Install kubernetes-cni
       apt:
-        name: Install kubernetes-cni
+        name: kubernetes-cni
         state: latest
     - name: Adding k8s GPG key
       apt_key:
