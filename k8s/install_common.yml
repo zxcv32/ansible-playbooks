@@ -11,11 +11,11 @@
     - name: Enable docker
       systemd:
         name: docker
-        state: enable
+        enabled: yes
     - name: Start docker
       systemd:
         name: docker
-        stat: start
+        state: started
     - name: Install curl
       apt:
         name: curl
