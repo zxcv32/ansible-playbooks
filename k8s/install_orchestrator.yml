@@ -14,7 +14,7 @@
   - name: Store Logs and cluster joining token
     become: False
     copy:
-      src: "{{ output.stdout }}""
+      src: "{{ output.stdout }}"
       dest: "/home/{{ ansible_user }}/orchestrator.log"
   - name: Creating config
     become: False
@@ -22,3 +22,7 @@
      mkdir -p $HOME/.kube
      sudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config
      sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  - name: Deploy pod nework
+    command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+  - name: Deploy pod network
+    command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
