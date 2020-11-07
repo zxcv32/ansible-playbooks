@@ -14,8 +14,8 @@
   - name: Store Logs and cluster joining token
     become: False
     copy:
-      src: {{ output.stdout }}
-      dest: /home/{{ ansible_user }}/orchestrator.log
+      src: "{{ output.stdout }}""
+      dest: "/home/{{ ansible_user }}/orchestrator.log"
   - name: Creating config
     become: False
     shell: |
