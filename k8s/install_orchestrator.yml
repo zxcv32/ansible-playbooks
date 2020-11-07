@@ -11,11 +11,9 @@
   - name: Initialze orchestrator
     shell: kubeadm init
     register: output
-  - name: Store Logs and cluster joining token
+  - name: Store logs and cluster joining token
     become: False
-    copy:
-      src: "{{ output.stdout }}"
-      dest: "/home/{{ ansible_user }}/orchestrator.log"
+    local_action: copy content={{ output.stdout }} dest=/home/{{ ansible_user }}/orchestrator.log
   - name: Creating config
     become: False
     shell: |
