@@ -10,7 +10,7 @@
     register: output
   - name: Store Logs and cluster joining token
     local_action: copy content={{ output.stdout }} dest=$HOME/orchestrator.log
-    sudo: False
+    become: False
   - name: Creating config
     shell: |
      mkdir -p $HOME/.kube
