@@ -5,13 +5,19 @@
   tasks:
   - name: Pulling orchestration images
     shell: kubeadm config images pull
+  - name: Reset kubeadm
+    shell: kubeadm reset -f
+    register: output
   - name: Initialze orchestrator
     shell: kubeadm init
     register: output
   - name: Store Logs and cluster joining token
-    local_action: copy content={{ output.stdout }} dest=$HOME/orchestrator.log
     become: False
+    copy:
+      src: {{ output.stdout }}
+      dest: /home/{{ ansible_user }}/orchestrator.log
   - name: Creating config
+    become: False
     shell: |
      mkdir -p $HOME/.kube
      sudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config
