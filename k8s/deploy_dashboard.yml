@@ -2,6 +2,7 @@
 - name: Deploy dashboard
   hosts:
     orchestrator
+  tasks:
   - name: Applying dashboard
     become: true
     become_user: "{{ ansible_user }}"
