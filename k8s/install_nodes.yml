@@ -2,7 +2,18 @@
 - name: Install node packages
   hosts:
     nodes
+  vars_files:
+  - env
   tasks:
-    - name: TODO Install node packages
-      debug:
-        msg: "TODO Install node packages"
+  - name: Copying orchestrator logs to nodes
+    become: true
+    become_user: "{{ ansible_user }}"
+    copy: src={{ logs }} dest={{ logs }}
+  - name: Resetting nodes
+    shell: kubeadm reset -f
+  - name: Executing join command
+    shell: "tail -2 {{ logs }} | $SHELL"
+  - name: Deleting orchestrator logs from the nodes
+    file:
+      path: {{ logs }}
+      state: absent
