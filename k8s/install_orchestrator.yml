@@ -9,17 +9,19 @@
     shell: kubeadm reset -f
     register: output
   - name: Initialze orchestrator
-    shell: kubeadm init
+    shell: kubeadm init --pod-network-cidr=10.244.0.0/16
     register: output
   - name: Store logs and cluster joining token
     local_action: copy content={{ output.stdout }} dest=orchestrator.log
     become: false
   - name: Creating config
+    become: true
+    become_user: {{ ansible_user }}
     shell: |
      mkdir -p $HOME/.kube
      sudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config
      sudo chown $(id -u):$(id -g) $HOME/.kube/config
   - name: Deploy pod nework
+    become: true
+    become_user: {{ ansible_user }}
     command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-  - name: Deploy pod network
-    command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
