@@ -16,12 +16,12 @@
     become: false
   - name: Creating config
     become: true
-    become_user: {{ ansible_user }}
+    become_user: "{{ ansible_user }}"
     shell: |
      mkdir -p $HOME/.kube
      sudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config
      sudo chown $(id -u):$(id -g) $HOME/.kube/config
   - name: Deploy pod nework
     become: true
-    become_user: {{ ansible_user }}
+    become_user: "{{ ansible_user }}"
     command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
