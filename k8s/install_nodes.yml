@@ -15,5 +15,5 @@
     shell: "tail -2 {{ logs }} | $SHELL"
   - name: Deleting orchestrator logs from the nodes
     file:
-      path: {{ logs }}
+      path: "{{ logs }}"
       state: absent

@@ -1,1 +1,1 @@
-logs=orchestrator.log
+logs: orchestrator.log
