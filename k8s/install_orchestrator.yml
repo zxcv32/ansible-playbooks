@@ -2,6 +2,8 @@
 - name: Install orchestrator packages
   hosts:
     orchestrator
+  vars_files:
+  - env
   tasks:
   - name: Pulling orchestration images
     shell: kubeadm config images pull
@@ -12,7 +14,7 @@
     shell: kubeadm init --pod-network-cidr=10.244.0.0/16
     register: output
   - name: Store logs and cluster joining token
-    local_action: copy content={{ output.stdout }} dest=orchestrator.log
+    local_action: copy content={{ output.stdout }} dest={{ logs }}
     become: false
   - name: Creating config
     become: true
