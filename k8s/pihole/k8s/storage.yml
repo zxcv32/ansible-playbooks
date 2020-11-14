@@ -59,7 +59,7 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   storageClassName: local
   local:
-    path: /home/zxcv32/pihole/dnsmasq/
+    path: /home/zxcv32/pihole/dnsmasq
   nodeAffinity:
     required:
       nodeSelectorTerms:
