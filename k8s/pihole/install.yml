@@ -15,7 +15,6 @@
     file:
       path: /home/zxcv32/pihole/dnsmasq
       state: directory
----
 - name: Deploy pihole
   hosts:
     orchestrator
