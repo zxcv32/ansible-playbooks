@@ -39,6 +39,10 @@
     become: true
     become_user: "{{ ansible_user }}"
     command: kubectl apply -f /tmp/k8s/svc.yml
+  - name: Applying web interface ingress rule
+    become: true
+    become_user: "{{ ansible_user }}"
+    command: kubectl apply -f /tmp/k8s/pihole-ingress.yml
   - name: Deleting Kubernetes YAML
     file:
       state: absent
