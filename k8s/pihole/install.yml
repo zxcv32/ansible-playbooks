@@ -10,10 +10,12 @@
   - name: Creating pihole etc volume directory
     become: true
     become_user: "{{ ansible_user }}"
+    hosts: node1
     file:
       path: /home/zxcv32/pihole/etc
       state: directory
   - name: Creating pihole dnsmasq volume directory
+    hosts: node1
     become: true
     become_user: "{{ ansible_user }}"
     file:

@@ -7,6 +7,15 @@ node2.home
 node3.home
 node4.home
 
+[node1]
+node1.home
+[node2]
+node2.home
+[node3]
+node3.home
+[node4]
+node4.home
+
 [all:vars]
 ansible_connection=ssh
 ansible_user='zxcv32'
