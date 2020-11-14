@@ -1,0 +1,9 @@
+---
+- name: Deploy pihole
+  hosts:
+    orchestrator
+  tasks:
+  - name: Applying storage
+    become: true
+    become_user: "{{ ansible_user }}"
+    command: kubectl apply -f k8s/storage.yml
