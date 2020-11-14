@@ -1,0 +1,15 @@
+[orchestrator]
+orchestrator.home
+
+[nodes]
+node1.home
+node2.home
+node3.home
+node4.home
+
+[all:vars]
+ansible_connection=ssh
+ansible_user='zxcv32'
+ansible_become=yes
+ansible_become_method=sudo
+ansible_python_interpreter='/usr/bin/env python3'
