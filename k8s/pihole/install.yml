@@ -11,3 +11,7 @@
     become: true
     become_user: "{{ ansible_user }}"
     command: kubectl apply -f /tmp/k8s/storage.yml
+  - name: Applying deployment
+    become: true
+    become_user: "{{ ansible_user }}"
+    command: kubectl apply -f /tmp/k8s/deployment.yml
