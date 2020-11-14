@@ -3,7 +3,11 @@
   hosts:
     orchestrator
   tasks:
+  - name: Copy Kubernets YAML
+    copy:
+      src: k8s
+      dest: /tmp/
   - name: Applying storage
     become: true
     become_user: "{{ ansible_user }}"
-    command: kubectl apply -f k8s/storage.yml
+    command: kubectl apply -f /tmp/k8s/storage.yml
