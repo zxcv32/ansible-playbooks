@@ -2,6 +2,7 @@
 - name: Create Directory
   hosts:
     node1
+  tasks:
   - name: Creating pihole etc volume directory
     become: true
     become_user: "{{ ansible_user }}"
