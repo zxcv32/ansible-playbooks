@@ -1,4 +1,20 @@
 ---
+- name: Create Directory
+  hosts:
+    node1
+  - name: Creating pihole etc volume directory
+    become: true
+    become_user: "{{ ansible_user }}"
+    file:
+      path: /home/zxcv32/pihole/etc
+      state: directory
+  - name: Creating pihole dnsmasq volume directory
+    become: true
+    become_user: "{{ ansible_user }}"
+    file:
+      path: /home/zxcv32/pihole/dnsmasq
+      state: directory
+---
 - name: Deploy pihole
   hosts:
     orchestrator
@@ -7,20 +23,6 @@
     copy:
       src: k8s
       dest: /tmp/
-  - name: Creating pihole etc volume directory
-    become: true
-    become_user: "{{ ansible_user }}"
-    hosts: node1
-    file:
-      path: /home/zxcv32/pihole/etc
-      state: directory
-  - name: Creating pihole dnsmasq volume directory
-    hosts: node1
-    become: true
-    become_user: "{{ ansible_user }}"
-    file:
-      path: /home/zxcv32/pihole/dnsmasq
-      state: directory
   - name: Applying secret
     become: true
     become_user: "{{ ansible_user }}"
