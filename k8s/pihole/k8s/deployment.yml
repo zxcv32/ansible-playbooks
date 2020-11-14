@@ -25,7 +25,7 @@ spec:
           value: "Asia/Kolkata"
         - name: WEBPASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               name: webpass
               key: password
         volumeMounts:
