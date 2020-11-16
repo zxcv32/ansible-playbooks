@@ -14,4 +14,4 @@
   - name: Create MetalLB Config Map
     become: true
     become_user: "{{ ansible_user }}"
-    command: kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+    shell: kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
