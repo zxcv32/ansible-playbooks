@@ -5,16 +5,16 @@
   tasks:
   - name: Copy Kubernets dashboard files
     copy:
-      src: k8s/setup/
+      src: k8s
       dest: /tmp/
   - name: Deploying dashboard
     become: true
     become_user: "{{ ansible_user }}"
-    command: kubectl apply -f /tmp/setup/dashboard_deploy.yml
+    command: kubectl apply -f /tmp/dashboard_deploy.yml
   - name: Creating dashboard admin
     become: true
     become_user: "{{ ansible_user }}"
-    command: kubectl apply -f /tmp/setup/dashboard_admin.yml
+    command: kubectl apply -f /tmp/dashboard_admin.yml
   - name: Creating dashboard directory and admin secret script
     become: true
     become_user: "{{ ansible_user }}"
@@ -22,3 +22,7 @@
      mkdir -p $HOME/dashboard
      echo "kubectl get secret -n kubernetes-dashboard $(kubectl get serviceaccount admin-user -n kubernetes-dashboard -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode" > $HOME/dashboard/secret.sh
      chmod 755 $HOME/dashboard/secret.sh
+  - name: Deleting Kubernetes YAML
+    file:
+      state: absent
+      path: "/tmp/k8s"
