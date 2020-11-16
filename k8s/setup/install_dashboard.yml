@@ -20,7 +20,7 @@
     become_user: "{{ ansible_user }}"
     shell: |
      mkdir -p $HOME/dashboard
-     echo "kubectl get secret -n kubernetes-dashboard $(kubectl get serviceaccount admin-user -n kubernetes-dashboard -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode" > $HOME/dashboard/secret.sh
+     echo "kubectl get secret -n kubernetes-dashboard \$(kubectl get serviceaccount admin-user -n kubernetes-dashboard -o jsonpath=\"{.secrets[0].name}\") -o jsonpath=\"{.data.token}\" | base64 --decode" > $HOME/dashboard/secret.sh
      chmod 755 $HOME/dashboard/secret.sh
   - name: Deleting Kubernetes YAML
     file:
