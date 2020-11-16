@@ -1,9 +1,0 @@
----
-- name: Deploy dashboard
-  hosts:
-    orchestrator
-  tasks:
-  - name: Applying dashboard
-    become: true
-    become_user: "{{ ansible_user }}"
-    command: kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
