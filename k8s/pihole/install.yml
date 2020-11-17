@@ -1,20 +1,8 @@
 ---
 - name: Create Directory
   hosts:
-    node1
+    orchestrator
   tasks:
-  - name: Creating pihole etc volume directory
-    become: true
-    become_user: "{{ ansible_user }}"
-    file:
-      path: /home/zxcv32/pihole/etc
-      state: directory
-  - name: Creating pihole dnsmasq volume directory
-    become: true
-    become_user: "{{ ansible_user }}"
-    file:
-      path: /home/zxcv32/pihole/dnsmasq
-      state: directory
 - name: Deploy pihole
   hosts:
     orchestrator
@@ -39,10 +27,6 @@
     become: true
     become_user: "{{ ansible_user }}"
     command: kubectl apply -f /tmp/k8s/svc.yml
-  - name: Applying web interface ingress rule
-    become: true
-    become_user: "{{ ansible_user }}"
-    command: kubectl apply -f /tmp/k8s/pihole-ingress.yml
   - name: Deleting Kubernetes YAML
     file:
       state: absent
