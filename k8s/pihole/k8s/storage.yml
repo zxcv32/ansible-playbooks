@@ -1,11 +1,4 @@
 ---
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: local
-provisioner: kubernetes.io/no-provisioner
-volumeBindingMode: WaitForFirstConsumer
----
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -17,25 +10,21 @@ spec:
     storage: 1Gi
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Delete
-  storageClassName: local
-  local:
-    path: /home/zxcv32/pihole/etc
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - node1
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /home/j62k86/samba/OneDrive_r/nfs/pihole/etc
+    server: storage.home
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pihole-local-etc-claim
 spec:
-  storageClassName: local
+  storageClassName: nfs
   accessModes:
   - ReadWriteOnce
   resources:
@@ -56,25 +45,18 @@ spec:
     storage: 1Gi
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Delete
-  storageClassName: local
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
   local:
-    path: /home/zxcv32/pihole/dnsmasq
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - node1
+    path: /home/j62k86/samba/OneDrive_r/nfs/pihole/dnsmasq
+    server: storage.home
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pihole-local-dnsmasq-claim
 spec:
-  storageClassName: local
+  storageClassName: nfs
   accessModes:
   - ReadWriteOnce
   resources:
