@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pihole-local-etc-volume
+  name: pihole-nfs-etc-volume
   labels:
     directory: etc
 spec:
@@ -22,7 +22,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pihole-local-etc-claim
+  name: pihole-nfs-etc-claim
 spec:
   storageClassName: nfs
   accessModes:
@@ -37,7 +37,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pihole-local-dnsmasq-volume
+  name: pihole-nfs-dnsmasq-volume
   labels:
     directory: dnsmasq.d
 spec:
@@ -47,14 +47,14 @@ spec:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: nfs
-  local:
+  nfs:
     path: /home/j62k86/samba/OneDrive_r/nfs/pihole/dnsmasq
     server: storage.home
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pihole-local-dnsmasq-claim
+  name: pihole-nfs-dnsmasq-claim
 spec:
   storageClassName: nfs
   accessModes:
