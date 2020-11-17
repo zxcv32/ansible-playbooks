@@ -29,14 +29,14 @@ spec:
               name: webpass
               key: password
         volumeMounts:
-        - name: pihole-local-etc-volume
+        - name: pihole-nfs-etc-volume
           mountPath: "/etc/pihole"
-        - name: pihole-local-dnsmasq-volume
+        - name: pihole-nfs-dnsmasq-volume
           mountPath: "/etc/dnsmasq.d"
       volumes:
-      - name: pihole-local-etc-volume
+      - name: pihole-nfs-etc-volume
         persistentVolumeClaim:
-          claimName: pihole-local-etc-claim
-      - name: pihole-local-dnsmasq-volume
+          claimName: pihole-nfs-etc-claim
+      - name: pihole-nfs-dnsmasq-volume
         persistentVolumeClaim:
-          claimName: pihole-local-dnsmasq-claim
+          claimName: pihole-nfs-dnsmasq-claim
