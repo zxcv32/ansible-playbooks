@@ -15,6 +15,8 @@
     command: kubectl apply -f /tmp/k8s/storage.yml
   - name: Deploy Grafana
     command: kubectl apply -f /tmp/k8s/deployment.yml
+  - name: Deploy Grafana Loadbalanver
+    command: kubectl apply -f /tmp/k8s/service.yml
   - name: Delete kubernetes YAML
     file:
       state: absent
