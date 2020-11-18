@@ -9,7 +9,7 @@ services:
       - "53:53/udp"
       - "67:67/udp"
       - "82:80/tcp"
-      - "443:443/tcp"
+      - "444:443/tcp"
     environment:
       TZ: 'Asia/Kolkata'
       WEBPASSWORD: '5hxrdYMC'
