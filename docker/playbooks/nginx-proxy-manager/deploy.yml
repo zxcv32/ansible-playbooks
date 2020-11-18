@@ -4,6 +4,8 @@
     docker
   vars_files:
   - env
+  becone: true
+  become_user: "{{ ansible_user }}"
   tasks:
   - name: Deploy stack
     command: docker-compose up -d
