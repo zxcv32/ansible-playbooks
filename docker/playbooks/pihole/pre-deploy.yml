@@ -1,0 +1,20 @@
+---
+- name: Pihole pre deploy
+  hosts:
+    docker
+  vars_files:
+  - env
+  become: true
+  become_user: "{{ ansible_user }}"
+  tasks:
+  - name: Create pihole directory
+    file:
+      path: "~/{{ directory }}"
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+      mode: 0775
+      state: directory
+  - name: Copy Docker Compose YAML
+    copy:
+      src: requirements/docker-compose.yml
+      dest: "~/{{ directory }}"

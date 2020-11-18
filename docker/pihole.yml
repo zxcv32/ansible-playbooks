@@ -1,0 +1,3 @@
+---
+- import_playbook: playbooks/pihole/pre-deploy.yml
+- import_playbook: playbooks/pihole/deploy.yml
