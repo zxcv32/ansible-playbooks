@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: grafana
+  name: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - image: grafana/grafana:7.3.3
+        name: grafana
+        env:
+          - name: GF_AUTH_ANONYMOUS_ENABLED
+            value: "true"
+          - name: GF_AUTH_ANONYMOUS_ORG_NAME
+            value: "Main Org."
+          - name: GF_AUTH_ANONYMOUS_ORG_ROLE
+            value: "Admin" # Admin > Editor > Viewer
+        ports:
+        - containerPort: 3000
+          name: interface
+        volumeMounts:
+          - name: grafana-var-lib
+            mountPath: /var/lib/grafana
+      volumes:
+        - name: grafana-var-lib
+          persistentVolumeClaim:
+            claimName: grafana-nfs-var-lib-pvc
