@@ -18,3 +18,8 @@
     copy:
       src: requirements/docker-compose.yml
       dest: "~/{{ directory }}"
+  - name: Disable and stop systemd-resolved
+    systemd:
+      name: systemd-resolved
+      enabled: no
+      state: stopped
