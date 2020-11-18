@@ -4,7 +4,7 @@
     docker
   vars_files:
   - env
-  becone: true
+  become: true
   become_user: "{{ ansible_user }}"
   tasks:
   - name: Create nginx proxy manager directory
