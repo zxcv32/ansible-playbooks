@@ -1,0 +1,19 @@
+---
+- name: Install Grafana
+  hosts:
+    orchestrator
+  vars_files:
+  - env
+  become: true
+  become_user: "{{ ansible_user }}"
+  tasks:
+  - name: Copy Kubernets YAML
+    copy:
+      src: k8s
+      dest: /tmp/
+  - name: Create Grafana volume
+    command: kubectl apply -f /tmp/k8s/storage.yml
+  - name: Delete kubernetes YAML
+    file:
+      state: absent
+      path: "/tmp/k8s"
