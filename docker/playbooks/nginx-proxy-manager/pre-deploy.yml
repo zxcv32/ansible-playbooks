@@ -1,0 +1,22 @@
+---
+- name: nginx proxy manager pre deploy
+  hosts:
+    docker
+  vars_files:
+  - env
+  tasks:
+  - name: Create nginx proxy manager directory
+    file:
+      path: "~/{{ directory }}"
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+      mode: 0755
+      state: directory
+  - name: Copy config file
+    copy:
+      src: requirements/config.json
+      dest: "~/{{ directory }}"
+  - name: Copy Docker Compose YAML
+    copy:
+      src: requirements/docker-compose.yml
+      dest: "~/{{ directory }}"

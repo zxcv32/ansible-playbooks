@@ -7,6 +7,10 @@
       apt:
         name: docker.io
         state: latest
+    - name: Install docker-compose
+      apt:
+        name: docker-compose
+        state: latest
     - name: Enable docker
       systemd:
         name: docker
