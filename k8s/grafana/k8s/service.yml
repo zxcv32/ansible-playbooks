@@ -10,6 +10,6 @@ spec:
     app: grafana
   ports:
   - port: 80
-    targetPort: http
+    targetPort: interface
     protocol: TCP
   type: LoadBalancer
