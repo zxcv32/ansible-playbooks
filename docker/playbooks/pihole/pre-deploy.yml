@@ -19,6 +19,7 @@
       src: requirements/docker-compose.yml
       dest: "~/{{ directory }}"
   - name: Disable and stop systemd-resolved
+    become_user: root
     systemd:
       name: systemd-resolved
       enabled: no
