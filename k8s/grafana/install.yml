@@ -2,8 +2,6 @@
 - name: Install Grafana
   hosts:
     orchestrator
-  vars_files:
-  - env
   become: true
   become_user: "{{ ansible_user }}"
   tasks:
@@ -15,7 +13,7 @@
     command: kubectl apply -f /tmp/k8s/storage.yml
   - name: Deploy Grafana
     command: kubectl apply -f /tmp/k8s/deployment.yml
-  - name: Deploy Grafana Loadbalanver
+  - name: Deploy Grafana Loadbalancer
     command: kubectl apply -f /tmp/k8s/service.yml
   - name: Delete kubernetes YAML
     file:
