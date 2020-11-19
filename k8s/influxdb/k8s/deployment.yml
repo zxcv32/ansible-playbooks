@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: influxdb
+  name: influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influxdb
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      hostname: influxdb
+      containers:
+      - image: influxdb:1.8.3
+        name: influxdb
+        envFrom:
+        - secretRef:
+            name: influxdb-creds
+        ports:
+        - containerPort: 8086
+          name: influxdb
+        volumeMounts:
+          - name: influxdb-var-lib
+            mountPath: /var/lib/grafana
+      volumes:
+        - name: influxdb-var-lib
+          persistentVolumeClaim:
+            claimName: influxdb-nfs-var-lib-pvc
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
