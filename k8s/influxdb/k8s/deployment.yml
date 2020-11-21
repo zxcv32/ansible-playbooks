@@ -37,6 +37,5 @@ spec:
           persistentVolumeClaim:
             claimName: influxdb-nfs-var-lib-pvc
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        fsGroup: 1000
+        runAsUser: 0
+        fsGroup: 0
