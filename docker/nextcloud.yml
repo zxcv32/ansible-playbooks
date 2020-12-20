@@ -1,0 +1,3 @@
+---
+- import_playbook: playbooks/nextcloud/pre-deploy.yml
+- import_playbook: playbooks/nextcloud/deploy.yml

@@ -1,5 +1,5 @@
 ---
-- name: Pihole deploy
+- name: Nextcloud deploy
   hosts:
     docker
   vars_files:

@@ -1,0 +1,28 @@
+version: "3"
+services:
+  nextcloud:
+    container_name: nextcloud
+    image: nextcloud:18
+    restart: always
+    ports:
+      - 8081:80
+    depends_on:
+      - nextcloud_database
+    env_file: nextcloud.env
+    volumes:
+      - ./var-www-html:/var/www/html
+    networks:
+      - nextcloud_network
+
+  nextcloud_database:
+    container_name: nextcloud_database
+    image: mariadb:10
+    restart: always
+    env_file: nextcloud_db.env
+    volumes:
+      - ./var-lib-mysql:/lib/mysql
+    networks:
+      - nextcloud_network
+
+networks:
+  nextcloud_network:

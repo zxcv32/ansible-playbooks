@@ -1,0 +1,30 @@
+---
+- name: Nextcloud Pre Deploy
+  hosts:
+    docker
+  vars_files:
+  - env
+  become: true
+  become_user: "{{ ansible_user }}"
+  vars_prompt:
+    - name: "config_check"
+      prompt: "Have you configured all the env files (yes/no)?"
+      private: no
+  tasks:
+  - name: Create Nextcloud directory
+    when: config_check
+    file:
+      path: "~/{{ directory }}"
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+      mode: 0775
+      state: directory
+  - name: Copy Docker Compose YAML and Environment files
+    when: config_check
+    copy:
+      src: requirements/{{ item }}
+      dest: "~/{{ directory }}"
+    with_items:
+      - docker-compose.yml
+      - nextcloud.env
+      - nextcloud_db.env
