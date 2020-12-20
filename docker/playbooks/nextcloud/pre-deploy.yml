@@ -12,7 +12,7 @@
       private: no
   tasks:
   - name: Create Nextcloud directory
-    when: config_check
+    when: config_check  == "yes"
     file:
       path: "~/{{ directory }}"
       owner: "{{ ansible_user }}"
@@ -20,7 +20,7 @@
       mode: 0775
       state: directory
   - name: Copy Docker Compose YAML and Environment files
-    when: config_check
+    when: config_check == "yes"
     copy:
       src: requirements/{{ item }}
       dest: "~/{{ directory }}"
