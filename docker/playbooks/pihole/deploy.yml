@@ -1,0 +1,13 @@
+---
+- name: Pihole deploy
+  hosts:
+    docker
+  vars_files:
+  - env
+  become: true
+  become_user: "{{ ansible_user }}"
+  tasks:
+  - name: Deploy stack
+    command: docker-compose up -d
+    args:
+      chdir: "~/{{ directory }}"
