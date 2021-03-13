@@ -18,6 +18,10 @@
     copy:
       src: requirements/docker-compose.yml
       dest: "~/{{ directory }}"
+  - name: Pull Docker image before disabling systemd-resolved
+    command: docker-compose pull
+    args:
+      chdir: "~/{{ directory }}"
   - name: Disable and stop systemd-resolved
     become_user: root
     systemd:
