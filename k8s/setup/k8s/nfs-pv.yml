@@ -14,5 +14,5 @@ spec:
     - hard
     - nfsvers=4.1
   nfs:
-    path: /home/j62k86/samba/OneDrive_r/nfs
-    server: storage.home
+    path: /home/j62k86/samba/nfs
+    server: storage.home.zxcv32.com
