@@ -1,20 +1,20 @@
 [orchestrator]
-orchestrator.home
+orchestrator.home.zxcv32.com
 
 [nodes]
-node1.home
-node2.home
-node3.home
-node4.home
+node1.home.zxcv32.com
+node2.home.zxcv32.com
+#node3.home.zxcv32.com
+#node4.home.zxcv32.com
 
 [node1]
-node1.home
+node1.home.zxcv32.com
 [node2]
-node2.home
+node2.home.zxcv32.com
 [node3]
-node3.home
+node3.home.zxcv32.com
 [node4]
-node4.home
+node4.home.zxcv32.com
 
 [all:vars]
 ansible_connection=ssh
