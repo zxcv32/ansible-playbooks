@@ -18,13 +18,13 @@
       src: k8s
       dest: /tmp/
   - name: Create InfluxDB volume
-    command: kubectl apply -f /tmp/k8s/storage.yml
+    command: kubectl -n db apply -f /tmp/k8s/storage.yml
   - name: Create InfluxDB authenticated user
-    command: "kubectl create secret generic influxdb-creds --from-literal=INFLUXDB_USERNAME={{ username }} --from-literal=INFLUXDB_PASSWORD={{ password }} --from-literal=INFLUXDB_DB={{ dbname }} --from-literal=INFLUXDB_HOST=influxdb"
+    command: "kubectl -n db create secret generic influxdb-creds --from-literal=INFLUXDB_USERNAME={{ username }} --from-literal=INFLUXDB_PASSWORD={{ password }} --from-literal=INFLUXDB_DB={{ dbname }} --from-literal=INFLUXDB_HOST=influxdb"
   - name: Deploy InfluxDB
-    command: kubectl apply -f /tmp/k8s/deployment.yml
+    command: kubectl -n db apply -f /tmp/k8s/deployment.yml
   - name: Deploy InfluxDB Loadbalancer
-    command: kubectl apply -f /tmp/k8s/service.yml
+    command: kubectl -n db apply -f /tmp/k8s/service.yml
   - name: Delete kubernetes YAML
     file:
       state: absent

@@ -16,8 +16,8 @@ spec:
     - hard
     - nfsvers=4.1
   nfs:
-    path: /home/j62k86/samba/OneDrive_r/nfs/influxdb/var-lib
-    server: storage.home
+    path: /home/j62k86/samba/k8s/nfs/influxdb/var-lib
+    server: storage
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

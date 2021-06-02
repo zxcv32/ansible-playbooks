@@ -9,18 +9,13 @@ spec:
   selector:
     matchLabels:
       app: grafana
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
   template:
     metadata:
       labels:
         app: grafana
     spec:
       containers:
-      - image: grafana/grafana:7.3.3
+      - image: grafana/grafana:7.5.7
         name: grafana
         env:
           - name: GF_AUTH_ANONYMOUS_ENABLED

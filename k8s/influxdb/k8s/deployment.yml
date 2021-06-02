@@ -9,11 +9,6 @@ spec:
   selector:
     matchLabels:
       app: influxdb
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -21,7 +16,7 @@ spec:
     spec:
       hostname: influxdb
       containers:
-      - image: influxdb:1.8.3
+      - image: influxdb:1.8
         name: influxdb
         envFrom:
         - secretRef:
