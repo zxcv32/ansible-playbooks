@@ -1,0 +1,2 @@
+---
+- import_playbook: playbooks/seacreeper/queen/deploy.yml
