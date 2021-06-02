@@ -1,5 +1,5 @@
 [docker]
-docker.home
+docker.home.zxcv32.com
 
 [all:vars]
 ansible_connection=ssh
