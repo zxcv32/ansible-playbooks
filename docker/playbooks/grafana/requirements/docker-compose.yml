@@ -1,0 +1,17 @@
+version: '3'
+services:
+  grafana:
+    image: grafana:8.0.0
+    restart: always
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_NAME: Main Org
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin # Admin > Editor > Viewer
+    ports:
+      - 3000:3000
+    networks:
+      - visualization
+
+networks:
+  visualization:
+    driver: bridge
