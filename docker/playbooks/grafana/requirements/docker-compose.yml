@@ -1,7 +1,7 @@
 version: '3'
 services:
   grafana:
-    image: grafana:8.0.0
+    image: grafana/grafana:8.0.0
     restart: always
     environment:
       GF_AUTH_ANONYMOUS_ENABLED: "true"
