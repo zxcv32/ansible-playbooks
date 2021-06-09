@@ -1,5 +1,5 @@
 ---
-- name: Install InfluxDB
+- name: Install InfluxDB v1.x
   hosts:
     orchestrator
   become: true
