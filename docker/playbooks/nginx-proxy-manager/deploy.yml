@@ -11,3 +11,10 @@
     command: docker-compose up -d
     args:
       chdir: "~/{{ directory }}"
+  - name: Default user
+    ansible.builtin.debug:
+      msg:
+        - "Default username: admin@example.com"
+        - "Default password: changeme"
+        - "Default port: 81"
+
