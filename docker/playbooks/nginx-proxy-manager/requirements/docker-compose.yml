@@ -13,11 +13,11 @@ services:
       - ./letsencrypt:/etc/letsencrypt
   db:
     restart: always
-    image: 'jc21/mariadb-aria:10.4'
+    image: 'jc21/mariadb-aria:latest'
     environment:
-      MYSQL_ROOT_PASSWORD: 'npm'
-      MYSQL_DATABASE: 'npm'
-      MYSQL_USER: 'npm'
-      MYSQL_PASSWORD: 'npm'
+      MYSQL_ROOT_PASSWORD: 'npm'  # not used
+      MYSQL_DATABASE: 'npm' # same as name in `name` in config.json
+      MYSQL_USER: 'npm' # same as name in `user` in config.json
+      MYSQL_PASSWORD: 'npm' # same as name in `password` in config.json
     volumes:
       - ./data/mysql:/var/lib/mysql
