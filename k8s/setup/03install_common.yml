@@ -28,6 +28,10 @@
       apt:
         name: apt-transport-https
         state: latest
+    - name: Install gnupg
+      apt:
+        name: gnupg
+        state: latest
     - name: Adding k8s GPG key
       apt_key:
         url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
