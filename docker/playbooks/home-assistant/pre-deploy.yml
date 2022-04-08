@@ -1,0 +1,17 @@
+---
+- name: Home Assistant pre deploy
+  hosts:
+    docker
+  vars_files:
+  - env
+  become: true
+  become_user: "{{ ansible_user }}"
+  tasks:
+  - name: Create Home Assistant directory
+    file:
+      path: "~/{{ directory }}"
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+      mode: 0775
+      state: directory
+

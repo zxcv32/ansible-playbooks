@@ -1,0 +1,29 @@
+---
+- name: Home Assistant deploy
+  hosts:
+    docker
+  vars_files:
+  - env
+  become: true
+  become_user: "{{ ansible_user }}"
+  tasks:
+  - name: Copy Docker Compose YAML
+    copy:
+      src: requirements/docker-compose.yml
+      dest: "~/{{ directory }}"
+  - name: Copy Docker Compose YAML
+    copy:
+      src: requirements/{{ item }}
+      dest: "~/{{ directory }}"
+    with_items:
+      - docker-compose.yml
+  - name: Deploy stack
+    command: docker-compose up -d
+    args:
+      chdir: "~/{{ directory }}"
+    environment:
+      CONFIG_DIRECTORY: "{{ directory }}"
+  - name: Delete Docker Compose YAML
+    file:
+      state: absent
+      path: "{{ directory }}/docker-compose.yml"

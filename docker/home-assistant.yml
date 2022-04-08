@@ -1,0 +1,3 @@
+---
+- import_playbook: playbooks/home-assistant/pre-deploy.yml
+- import_playbook: playbooks/home-assistant/deploy.yml
