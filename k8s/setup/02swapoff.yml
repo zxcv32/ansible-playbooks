@@ -1,6 +1,8 @@
 ---
 - name: Disabling Swap
-  hosts: all
+  hosts:
+  - orchestrator
+  - nodes
   tasks:
   - name: Disabling Swap
     shell: swapoff -a

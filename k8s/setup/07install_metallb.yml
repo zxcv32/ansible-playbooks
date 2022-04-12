@@ -1,17 +1,14 @@
 ---
 - name: Deploy MetalLB
   hosts:
-    orchestrator
+  - orchestrator
   tasks:
   - name: Create MetalLB namespace
-    become: true
     become_user: "{{ ansible_user }}"
     command: kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/namespace.yaml
   - name: Deploy MetalLB
-    become: true
     become_user: "{{ ansible_user }}"
     command: kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/metallb.yaml
   - name: Create MetalLB Config Map
-    become: true
     become_user: "{{ ansible_user }}"
     shell: kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"

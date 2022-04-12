@@ -1,58 +1,109 @@
 ---
 - name: Install common packages
   hosts:
-    orchestrator
-    nodes
+  - orchestrator
+  - nodes
+  vars_files:
+  - env
   tasks:
-    - name: Install docker.io
-      apt:
-        name: docker.io
-        state: latest
-    - name: Enable docker
-      systemd:
-        name: docker
-        enabled: yes
-    - name: Start docker
-      systemd:
-        name: docker
-        state: started
-    - name: Install curl
-      apt:
-        name: curl
-        state: latest
-    - name: Install nfs-common
-      apt:
-        name: nfs-common
-        state: latest
-    - name: Install apt-transport-https
-      apt:
-        name: apt-transport-https
-        state: latest
-    - name: Install gnupg
-      apt:
-        name: gnupg
-        state: latest
-    - name: Adding k8s GPG key
-      apt_key:
-        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-        state: present
-    - name: Adding k8s PPA
-      apt_repository:
-        repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
-        state: present
-    - name: Install kubeadm
-      apt:
-        name: kubeadm
-        state: latest
-    - name: Install kubelet
-      apt:
-        name: kubelet
-        state: latest
-    - name: Install kubectl
-      apt:
-        name: kubectl
-        state: latest
-    - name: Install kubernetes-cni
-      apt:
-        name: kubernetes-cni
-        state: latest
+  - name: Install curl
+    apt:
+      name: curl
+      state: latest
+  - name: Install ca-certificates
+    apt:
+      name: ca-certificates
+      state: latest
+  - name: Install nfs-common
+    apt:
+      name: nfs-common
+      state: latest
+  - name: Install apt-transport-https
+    apt:
+      name: apt-transport-https
+      state: latest
+  - name: Install gnupg
+    apt:
+      name: gnupg
+      state: latest
+  - name: Adding k8s GPG key
+    apt_key:
+      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      state: present
+  - name: Adding k8s PPA
+    apt_repository:
+      repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+      state: present
+  - name: Install kubeadm
+    apt:
+      name: kubeadm
+      state: latest
+  - name: Install kubelet
+    apt:
+      name: kubelet
+      state: latest
+  - name: Install kubectl
+    apt:
+      name: kubectl
+      state: latest
+  - name: APT Hold kubeadm
+    dpkg_selections:
+      name: kubeadm
+      selection: hold
+  - name: APT Hold kubelet
+    dpkg_selections:
+      name: kubelet
+      selection: hold
+  - name: APT Hold kubectl
+    dpkg_selections:
+      name: kubectl
+      selection: hold
+  - name: Enable overlay Kernal Module
+    shell: modprobe overlay
+  - name: Enable br_netfilter Kernal Module
+    shell: modprobe br_netfilter
+  - name: Enable Kernel Modules on Boot
+    shell: |
+     cat <<EOF | sudo tee /etc/modules-load.d/crio.conf
+     overlay
+     br_netfilter
+     EOF
+  - name: Setup sysctl parameters
+    shell: |
+     cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
+     net.bridge.bridge-nf-call-iptables  = 1
+     net.ipv4.ip_forward                 = 1
+     net.bridge.bridge-nf-call-ip6tables = 1
+     EOF
+  - name: Apply sysctl parameters
+    shell: sysctl --system
+    become: true
+  - name: Add cri-o PPA
+    shell: |
+     cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+     deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /
+     EOF
+     cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.list
+     deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /
+     EOF
+     curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
+     curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers-cri-o.gpg add -
+    environment:
+      OS: "{{ os }}"
+      VERSION: "{{ cri_o }}"
+  - name: Update APT Repos & Cache
+    apt:
+      update_cache: yes
+  - name: Install cri-o
+    apt:
+      name: cri-o
+      state: latest
+  - name: Install cri-o-runc
+    apt:
+      name: cri-o-runc
+      state: latest
+  - name: Enable and Start CRI-O
+    systemd:
+      name: crio
+      state: started
+      enabled: yes

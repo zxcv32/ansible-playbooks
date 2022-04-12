@@ -1,13 +1,11 @@
 ---
 - name: Install node packages
   hosts:
-    nodes
+  - nodes
   vars_files:
   - env
   tasks:
   - name: Copying orchestrator logs to nodes
-    become: true
-    become_user: "{{ ansible_user }}"
     copy: src={{ logs }} dest={{ logs }}
   - name: Resetting nodes
     shell: kubeadm reset -f

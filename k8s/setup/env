@@ -1,1 +1,3 @@
 logs: orchestrator.log
+os: xUbuntu_20.04
+cri_o: 1.23

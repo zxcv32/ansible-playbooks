@@ -1,22 +1,19 @@
 ---
 - name: Deploy dashboard
   hosts:
-    orchestrator
+  - orchestrator
   tasks:
   - name: Copy Kubernets dashboard files
     copy:
       src: k8s
       dest: /tmp/
   - name: Deploying dashboard
-    become: true
     become_user: "{{ ansible_user }}"
     command: kubectl apply -f /tmp/k8s/dashboard-deploy.yml
   - name: Creating dashboard admin
-    become: true
     become_user: "{{ ansible_user }}"
     command: kubectl apply -f /tmp/k8s/dashboard-admin.yml
   - name: Creating dashboard directory and admin secret script
-    become: true
     become_user: "{{ ansible_user }}"
     shell: |
      mkdir -p $HOME/dashboard

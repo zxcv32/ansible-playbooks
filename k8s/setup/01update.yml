@@ -1,11 +1,11 @@
 ---
 - name: update
   hosts:
-    orchestrator
-    nodes
+  - orchestrator
+  - nodes
   tasks:
   - name: update apt repo & cache
-    apt: update_cache=yes cache_valid_time=3600
+    apt: update_cache=yes cache_valid_time=300
   - name: upgrade all apt packages
     apt: upgrade=dist
   - name: Check if a reboot is needed for server
