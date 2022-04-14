@@ -4,7 +4,7 @@ services:
     container_name: homeassistant
     image: "ghcr.io/home-assistant/home-assistant:stable"
     volumes:
-      - /${CONFIG_DIRECTORY}:/config
+      - ~/${CONFIG_DIRECTORY}:/config
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
     privileged: true
