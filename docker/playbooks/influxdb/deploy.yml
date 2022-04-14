@@ -1,21 +1,27 @@
 ---
 - name: Deploy InfluxDB Docker Container
   hosts:
-    docker
+  - docker
   vars_files:
-    - env
+  - env
   become: true
   become_user: "{{ ansible_user }}"
   vars_prompt:
   - name: username
     prompt: Enter InfluxDB username
     private: no
+    default: scriber
   - name: password
     prompt: Enter InfluxDB user password
+    default: scriberpass
   - name: org
     prompt: Enter InfluxDB organization name
+    private: no
+    default: seacreeper
   - name: bucket
     prompt: Enter InfluxDB default bucket name
+    private: no
+    default: scribes
   tasks:
     - name: Copy Docker Compose YAML
       copy:
